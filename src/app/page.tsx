@@ -1,65 +1,52 @@
-import Image from "next/image";
-
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <main className="relative h-screen w-full overflow-hidden bg-(--paper)">
+
+      <div className="absolute top-8 left-14">
+        <span className="font-mono text-[11px] tracking-[0.25em] text-(--muted)">
+          01 / 04
+        </span>
+      </div>
+
+      <div className="absolute top-8 right-10 text-right">
+        <div className="flex items-center justify-end gap-2 mb-1">
+          <span className="inline-block w-1.5 h-1.5 rounded-full bg-(--accent)" />
+          <p className="font-mono text-[11px] tracking-[0.18em] uppercase text-(--muted)">
+            Applied Informatics
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
-  );
+        <p className="font-mono text-[11px] tracking-[0.18em] uppercase text-(--muted) pr-[14px]">
+          Software Engineer
+        </p>
+      </div>
+
+      <div className="absolute left-[9%] top-[18%] bottom-[22%] w-px bg-(--ink) opacity-[0.1]" />
+
+      <div className="absolute left-5 top-1/2 -translate-y-1/2 rotate-180 [writing-mode:vertical-rl]">
+        <span className="font-mono text-[9px] tracking-[0.55em] text-(--muted) uppercase">
+          Bucharest — 2026
+        </span>
+      </div>
+
+      <div className="absolute bottom-[18%] left-[11%] animate-fade-up">
+        <h1 className="leading-[0.88] font-display font-light select-none">
+          <span className="block text-[clamp(4.5rem,10vw,10.5rem)] text-(--ink)">
+            Răzvan
+          </span>
+          <span className="block text-[clamp(4.5rem,10vw,10.5rem)] text-(--ink) pl-[clamp(2.5rem,5.5vw,5.5rem)] animate-fade-up-delay">
+            Ştirbu
+          </span>
+        </h1>
+      </div>
+
+      <div className="absolute bottom-[13%] left-[10%] w-[48%] h-px bg-(--ink) opacity-[0.12]" />
+
+      <div className="absolute bottom-8 right-10">
+        <span className="font-mono text-[11px] tracking-[0.3em] text-(--muted)">
+          scroll ↓
+        </span>
+      </div>
+
+    </main>
+  )
 }
