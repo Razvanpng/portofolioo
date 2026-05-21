@@ -114,6 +114,20 @@ export default function Home() {
               </p>
             </div>
           </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start group">
+            <div className="md:col-span-4 text-sm md:text-base text-(--muted) group-hover:text-(--accent) transition-colors mt-2">
+              python / whisper ai
+            </div>
+            <div className="md:col-span-8 flex flex-col gap-6">
+              <h3 className="text-4xl md:text-6xl font-black uppercase tracking-tighter">
+                Smart Music Player
+              </h3>
+              <p className="text-lg md:text-xl text-(--muted) leading-relaxed max-w-2xl">
+                Academic multimedia application. Developed an intelligent audio playback system integrated with an open-source speech-to-text pipeline to generate synchronized lyrics on the fly.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -142,7 +156,7 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start border-l border-(--muted) border-opacity-30 pl-6">
             <div className="md:col-span-4 text-xs text-(--accent) uppercase tracking-widest mt-1">
               December 2024 // 6th place
-                </div>
+            </div>
             <div className="md:col-span-8 flex flex-col gap-4">
               <h3 className="text-2xl md:text-4xl font-black uppercase tracking-tight">
                 ZebraHack 2.0
@@ -160,10 +174,17 @@ export default function Home() {
           <h2 className="text-[10vw] md:text-[6vw] font-black uppercase tracking-tighter leading-none mb-8">
             connect.
           </h2>
-          <div className="flex flex-col gap-2 text-lg md:text-xl text-(--muted)">
+          <div className="flex flex-col gap-2 text-lg md:text-xl text-(--muted) mb-8">
             <a href="mailto:razvanstirbu4@gmail.com" className="hover:text-(--accent) transition-colors w-fit">razvanstirbu4@gmail.com</a>
             <span className="w-fit">+40 773 919 551</span>
           </div>
+          <a 
+            href="/Stirbu_Razvan_CV.pdf" 
+            download 
+            className="inline-block border border-(--ink) px-5 py-2 text-xs uppercase tracking-widest font-bold hover:bg-(--accent) hover:border-(--accent) hover:text-(--paper) transition-colors"
+          >
+            [ download_cv.pdf ]
+          </a>
         </div>
 
         <div className="flex flex-col gap-4 text-xl md:text-3xl font-bold uppercase tracking-widest text-left md:text-right">
