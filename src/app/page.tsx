@@ -1,52 +1,55 @@
 export default function Home() {
   return (
-    <main className="relative h-screen w-full overflow-hidden bg-(--paper)">
+    <main className="w-full min-h-screen bg-(--paper) text-(--ink) selection:bg-(--accent) selection:text-(--paper) font-mono">
+      <section className="relative min-h-screen w-full p-8 md:p-16 flex flex-col justify-center border-b border-(--muted) border-opacity-20">
 
-      <div className="absolute top-8 left-14">
-        <span className="font-mono text-[11px] tracking-[0.25em] text-(--muted)">
-          01 / 04
-        </span>
-      </div>
+        <div className="w-full max-w-6xl mx-auto">
+          <h1 className="leading-none font-black tracking-tighter uppercase">
+            <span className="block text-[12vw] text-(--ink)">
+              Razvan
+            </span>
+            <span className="block text-[12vw] text-(--ink) pl-[12vw] md:pl-[20vw] mt-2">
+              Stirbu
+            </span>
+          </h1>
 
-      <div className="absolute top-8 right-10 text-right">
-        <div className="flex items-center justify-end gap-2 mb-1">
-          <span className="inline-block w-1.5 h-1.5 rounded-full bg-(--accent)" />
-          <p className="font-mono text-[11px] tracking-[0.18em] uppercase text-(--muted)">
-            Applied Informatics
-          </p>
+          <div className="flex flex-col md:flex-row justify-end items-end w-full mt-32">
+            <div className="w-full md:w-2/5 border-t-2 border-(--accent) pt-6">
+              <p className="text-base md:text-lg leading-relaxed text-(--ink)">
+                Applied Informatics Student. Software Engineer. Building raw products from database schemas to interface.
+              </p>
+            </div>
+          </div>
         </div>
-        <p className="font-mono text-[11px] tracking-[0.18em] uppercase text-(--muted) pr-[14px]">
-          Software Engineer
-        </p>
-      </div>
 
-      <div className="absolute left-[9%] top-[18%] bottom-[22%] w-px bg-(--ink) opacity-[0.1]" />
+      </section>
 
-      <div className="absolute left-5 top-1/2 -translate-y-1/2 rotate-180 [writing-mode:vertical-rl]">
-        <span className="font-mono text-[9px] tracking-[0.55em] text-(--muted) uppercase">
-          Bucharest — 2026
-        </span>
-      </div>
+      <section className="relative min-h-screen w-full p-8 md:p-16 flex flex-col justify-center bg-(--ink) text-(--paper)">
 
-      <div className="absolute bottom-[18%] left-[11%] animate-fade-up">
-        <h1 className="leading-[0.88] font-display font-light select-none">
-          <span className="block text-[clamp(4.5rem,10vw,10.5rem)] text-(--ink)">
-            Răzvan
-          </span>
-          <span className="block text-[clamp(4.5rem,10vw,10.5rem)] text-(--ink) pl-[clamp(2.5rem,5.5vw,5.5rem)] animate-fade-up-delay">
-            Ştirbu
-          </span>
-        </h1>
-      </div>
+        <div className="w-full max-w-6xl mx-auto md:pl-[8vw]">
+          <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-tight uppercase max-w-5xl">
+            3rd-year applied informatics student at the faculty of automatic control and computers.
+          </h2>
+          
+          <div className="mt-16 border-l-4 border-(--accent) pl-6 md:ml-[12vw] max-w-2xl">
+            <p className="text-lg md:text-2xl leading-snug">
+              Specialized in full-stack development. I bypass generic templates to build custom architecture. 
+            </p>
+          </div>
 
-      <div className="absolute bottom-[13%] left-[10%] w-[48%] h-px bg-(--ink) opacity-[0.12]" />
+          <div className="mt-32 pt-16 border-t border-(--paper) border-opacity-20">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-y-16 gap-x-8 text-xl md:text-2xl font-black uppercase tracking-widest">
+              <div className="hover:text-(--accent) transition-colors">JavaScript</div>
+              <div className="hover:text-(--accent) transition-colors md:mt-12">TypeScript</div>
+              <div className="hover:text-(--accent) transition-colors">React.js</div>
+              <div className="hover:text-(--accent) transition-colors md:mt-12">Next.js</div>
+              <div className="hover:text-(--accent) transition-colors md:mt-24">Node.js</div>
+              <div className="hover:text-(--accent) transition-colors md:mt-12">PostgreSQL</div>
+            </div>
+          </div>
+        </div>
 
-      <div className="absolute bottom-8 right-10">
-        <span className="font-mono text-[11px] tracking-[0.3em] text-(--muted)">
-          scroll ↓
-        </span>
-      </div>
-
+      </section>
     </main>
   )
 }
