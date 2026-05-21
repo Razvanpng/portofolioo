@@ -116,6 +116,65 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <section className="relative min-h-screen w-full px-[8vw] py-32 border-t border-(--muted) border-opacity-20">
+        <div className="mb-24">
+          <h2 className="text-3xl md:text-5xl font-bold leading-tight uppercase max-w-4xl">
+            hackathons.
+          </h2>
+        </div>
+
+        <div className="flex flex-col gap-24 w-full">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start border-l border-(--muted) border-opacity-30 pl-6">
+            <div className="md:col-span-4 text-xs text-(--accent) uppercase tracking-widest mt-1">
+              May 2026 // Microsoft
+            </div>
+            <div className="md:col-span-8 flex flex-col gap-4">
+              <h3 className="text-2xl md:text-4xl font-black uppercase tracking-tight">
+                GitGood Hack
+              </h3>
+              <p className="text-base md:text-lg text-(--muted) leading-relaxed max-w-2xl">
+                Developed a carbon-aware compute routing simulator for greenops infrastructure efficiency. Engineered a k-means clustering algorithm to distribute server load dynamically based on regional carbon intensity metrics.
+              </p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start border-l border-(--muted) border-opacity-30 pl-6">
+            <div className="md:col-span-4 text-xs text-(--accent) uppercase tracking-widest mt-1">
+              December 2024 // 6th place
+                </div>
+            <div className="md:col-span-8 flex flex-col gap-4">
+              <h3 className="text-2xl md:text-4xl font-black uppercase tracking-tight">
+                ZebraHack 2.0
+              </h3>
+              <p className="text-base md:text-lg text-(--muted) leading-relaxed max-w-2xl">
+                Competed in a high-intensity 4-person team. Took complete ownership of the front-end development, architecture execution, and custom UI assembly under extreme time constraints.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="relative w-full px-[8vw] py-32 border-t border-(--muted) border-opacity-20 flex flex-col md:flex-row justify-between items-start md:items-end gap-16">
+        <div>
+          <h2 className="text-[10vw] md:text-[6vw] font-black uppercase tracking-tighter leading-none mb-8">
+            connect.
+          </h2>
+          <div className="flex flex-col gap-2 text-lg md:text-xl text-(--muted)">
+            <a href="mailto:razvanstirbu4@gmail.com" className="hover:text-(--accent) transition-colors w-fit">razvanstirbu4@gmail.com</a>
+            <span className="w-fit">+40 773 919 551</span>
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-4 text-xl md:text-3xl font-bold uppercase tracking-widest text-left md:text-right">
+          <a href="https://github.com/Razvanpng" target="_blank" rel="noreferrer" className="hover:text-(--accent) transition-colors">
+            github
+          </a>
+          <a href="https://linkedin.com/in/razvan-stirbu" target="_blank" rel="noreferrer" className="hover:text-(--accent) transition-colors">
+            linkedin
+          </a>
+        </div>
+      </section>
     </main>
   )
 }
