@@ -1,6 +1,49 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState, useRef, ReactNode } from "react";
+
+interface MagneticLinkProps {
+  children: ReactNode;
+  href: string;
+  className?: string;
+  download?: boolean;
+  target?: string;
+  rel?: string;
+}
+
+function MagneticLink({ children, href, className, download, target, rel }: MagneticLinkProps) {
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const ref = useRef<HTMLAnchorElement>(null);
+
+  const handleMouse = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (!ref.current) return;
+    const { clientX, clientY } = e;
+    const { height, width, left, top } = ref.current.getBoundingClientRect();
+    const middleX = clientX - (left + width / 2);
+    const middleY = clientY - (top + height / 2);
+    setPosition({ x: middleX * 0.25, y: middleY * 0.25 });
+  };
+
+  const reset = () => {
+    setPosition({ x: 0, y: 0 });
+  };
+
+  return (
+    <a
+      ref={ref}
+      href={href}
+      download={download}
+      target={target}
+      rel={rel}
+      onMouseMove={handleMouse}
+      onMouseLeave={reset}
+      className={`inline-block transition-transform duration-300 ease-out will-change-transform ${className || ""}`}
+      style={{ transform: `translate(${position.x}px, ${position.y}px)` }}
+    >
+      {children}
+    </a>
+  );
+}
 
 export default function Home() {
   useEffect(() => {
@@ -45,7 +88,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="relative min-h-screen w-full px-[8vw] py-32 border-t border-(--muted) border-opacity-20 reveal">
+      <section className="relative min-h-screen w-full px-[8vw] py-32 border-t-2 border-(--ink) border-opacity-10 reveal">
         <div className="mb-24">
           <h2 className="text-3xl md:text-5xl font-bold leading-tight uppercase max-w-4xl">
             3rd-year applied informatics student at the faculty of automatic control and computers.
@@ -90,7 +133,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="relative min-h-screen w-full px-[8vw] py-32 border-t border-(--muted) border-opacity-20 reveal">
+      <section className="relative min-h-screen w-full px-[8vw] py-32 border-t-[16px] border-(--ink) reveal">
         <div className="mb-32">
           <h2 className="text-3xl md:text-5xl font-bold leading-tight uppercase max-w-4xl">
             selected work.
@@ -164,7 +207,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="relative min-h-screen w-full px-[8vw] py-32 border-t border-(--muted) border-opacity-20 reveal">
+      <section className="relative min-h-screen w-full px-[8vw] py-32 border-t-2 border-(--accent) reveal">
         <div className="mb-24">
           <h2 className="text-3xl md:text-5xl font-bold leading-tight uppercase max-w-4xl">
             hackathons.
@@ -208,24 +251,26 @@ export default function Home() {
             connect.
           </h2>
           <div className="flex flex-col gap-2 text-lg md:text-xl text-(--muted) mb-8">
-            <a href="mailto:razvanstirbu4@gmail.com" className="hover:text-(--accent) transition-colors w-fit">razvanstirbu4@gmail.com</a>
+            <MagneticLink href="mailto:razvanstirbu4@gmail.com" className="hover:text-(--accent) transition-colors w-fit">
+              razvanstirbu4@gmail.com
+            </MagneticLink>
           </div>
-          <a 
+          <MagneticLink 
             href="/Stirbu_Razvan_CV.pdf" 
             download 
-            className="inline-block border border-(--ink) px-5 py-2 text-xs uppercase tracking-widest font-bold hover:bg-(--accent) hover:border-(--accent) hover:text-(--paper) transition-colors"
+            className="border border-(--ink) px-5 py-2 text-xs uppercase tracking-widest font-bold hover:bg-(--accent) hover:border-(--accent) hover:text-(--paper) transition-colors"
           >
             [ download_cv.pdf ]
-          </a>
+          </MagneticLink>
         </div>
 
         <div className="flex flex-col gap-4 text-xl md:text-3xl font-bold uppercase tracking-widest text-left md:text-right">
-          <a href="https://github.com/Razvanpng" target="_blank" rel="noreferrer" className="hover:text-(--accent) transition-colors">
+          <MagneticLink href="https://github.com/Razvanpng" target="_blank" rel="noreferrer" className="hover:text-(--accent) transition-colors">
             github
-          </a>
-          <a href="https://linkedin.com/in/razvan-stirbu" target="_blank" rel="noreferrer" className="hover:text-(--accent) transition-colors">
+          </MagneticLink>
+          <MagneticLink href="https://linkedin.com/in/razvan-stirbu" target="_blank" rel="noreferrer" className="hover:text-(--accent) transition-colors">
             linkedin
-          </a>
+          </MagneticLink>
         </div>
       </section>
     </main>
