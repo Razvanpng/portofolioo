@@ -186,18 +186,22 @@ export default function Home() {
         <div className="w-full">
           <h1 className="flex flex-col gap-2 md:gap-4 font-black tracking-tighter uppercase leading-none">
             <span 
-              className="text-[18vw] md:text-[10vw] text-(--ink)"
+              className="inline-block"
               data-kinetic="left"
               style={{ transform: `translateX(${-kineticOffset}px)` }}
             >
-              Razvan
+              <span className="inline-block text-[18vw] md:text-[10vw] text-(--ink) transition-all duration-300 ease-out hover:blur-[4px] hover:skew-x-[-6deg] hover:scale-105 hover:opacity-80">
+                Razvan
+              </span>
             </span>
             <span 
-              className="text-[18vw] md:text-[10vw] text-(--ink) ml-[10vw] md:ml-[20vw]"
+              className="inline-block ml-[10vw] md:ml-[20vw]"
               data-kinetic="right"
               style={{ transform: `translateX(${kineticOffset}px)` }}
             >
-              Stirbu
+              <span className="inline-block text-[18vw] md:text-[10vw] text-(--ink) transition-all duration-300 ease-out hover:blur-[4px] hover:skew-x-[6deg] hover:scale-105 hover:opacity-80">
+                Stirbu
+              </span>
             </span>
           </h1>
         </div>
