@@ -7,10 +7,23 @@
   --muted: #6b6b70;
 }
 
+.theme-light {
+  --paper: #e8e6e3;
+  --ink: #131314;
+  --accent: #c45d20;
+  --muted: #6b6b70;
+}
+
 body {
   background-color: var(--paper);
   color: var(--ink);
   overflow-x: hidden;
+  transition: background-color 0s, color 0s;
+}
+
+/* Forțăm link-urile și butoanele să moștenească culoarea textului părinte */
+a, button {
+  color: currentColor;
 }
 
 ::selection {

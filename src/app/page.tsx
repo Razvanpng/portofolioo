@@ -9,9 +9,10 @@ interface MagneticLinkProps {
   download?: boolean;
   target?: string;
   rel?: string;
+  ariaLabel?: string;
 }
 
-function MagneticLink({ children, href, className, download, target, rel }: MagneticLinkProps) {
+function MagneticLink({ children, href, className, download, target, rel, ariaLabel }: MagneticLinkProps) {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const ref = useRef<HTMLAnchorElement>(null);
 
@@ -35,6 +36,7 @@ function MagneticLink({ children, href, className, download, target, rel }: Magn
       download={download}
       target={target}
       rel={rel}
+      aria-label={ariaLabel}
       onMouseMove={handleMouse}
       onMouseLeave={reset}
       className={`inline-block transition-transform duration-300 ease-out will-change-transform ${className || ""}`}
@@ -47,6 +49,11 @@ function MagneticLink({ children, href, className, download, target, rel }: Magn
 
 export default function Home() {
   useEffect(() => {
+    const storedTheme = localStorage.getItem("theme");
+    if (storedTheme === "light") {
+      document.documentElement.classList.add("theme-light");
+    }
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -67,8 +74,28 @@ export default function Home() {
     };
   }, []);
 
+  const toggleTheme = () => {
+    const isLight = document.documentElement.classList.contains("theme-light");
+    if (isLight) {
+      document.documentElement.classList.remove("theme-light");
+      localStorage.setItem("theme", "dark");
+    } else {
+      document.documentElement.classList.add("theme-light");
+      localStorage.setItem("theme", "light");
+    }
+  };
+
   return (
     <main className="w-full min-h-screen bg-(--paper) text-(--ink) font-mono selection:bg-(--accent) selection:text-(--paper) animate-fade-in relative pb-16">
+      
+      <button 
+        onClick={toggleTheme}
+        aria-label="Invert color theme"
+        className="absolute top-8 right-6 md:top-12 md:right-[8vw] z-50 text-xs font-bold uppercase tracking-widest hover:text-(--accent) transition-colors cursor-pointer"
+      >
+        [ invert ]
+      </button>
+
       <section className="relative min-h-[85vh] w-full pt-20 pb-20 px-6 md:pt-24 md:pb-24 md:px-[8vw] flex flex-col justify-center">
         <div className="w-full">
           <h1 className="flex flex-col gap-2 md:gap-4 font-black tracking-tighter uppercase leading-none">
@@ -105,27 +132,27 @@ export default function Home() {
               <ul className="flex flex-col gap-4 md:gap-6 text-lg md:text-2xl font-bold uppercase tracking-widest group/list">
                 <li className="flex justify-between items-center group/item group-hover/list:opacity-50 hover:opacity-100! transition-opacity duration-300">
                   <span className="group-hover/item:text-(--accent) transition-colors">JavaScript</span>
-                  <span className="text-xs text-(--muted)">01</span>
+                  <span className="text-xs text-(--muted)" aria-hidden="true">01</span>
                 </li>
                 <li className="flex justify-between items-center group/item ml-0 md:ml-4 group-hover/list:opacity-50 hover:opacity-100! transition-opacity duration-300">
                   <span className="group-hover/item:text-(--accent) transition-colors">TypeScript</span>
-                  <span className="text-xs text-(--muted)">02</span>
+                  <span className="text-xs text-(--muted)" aria-hidden="true">02</span>
                 </li>
                 <li className="flex justify-between items-center group/item ml-0 md:ml-8 group-hover/list:opacity-50 hover:opacity-100! transition-opacity duration-300">
                   <span className="group-hover/item:text-(--accent) transition-colors">React.js</span>
-                  <span className="text-xs text-(--muted)">03</span>
+                  <span className="text-xs text-(--muted)" aria-hidden="true">03</span>
                 </li>
                 <li className="flex justify-between items-center group/item ml-0 md:ml-12 group-hover/list:opacity-50 hover:opacity-100! transition-opacity duration-300">
                   <span className="group-hover/item:text-(--accent) transition-colors">Next.js</span>
-                  <span className="text-xs text-(--muted)">04</span>
+                  <span className="text-xs text-(--muted)" aria-hidden="true">04</span>
                 </li>
                 <li className="flex justify-between items-center group/item ml-0 md:ml-16 group-hover/list:opacity-50 hover:opacity-100! transition-opacity duration-300">
                   <span className="group-hover/item:text-(--accent) transition-colors">Node.js</span>
-                  <span className="text-xs text-(--muted)">05</span>
+                  <span className="text-xs text-(--muted)" aria-hidden="true">05</span>
                 </li>
                 <li className="flex justify-between items-center group/item ml-0 md:ml-20 group-hover/list:opacity-50 hover:opacity-100! transition-opacity duration-300">
                   <span className="group-hover/item:text-(--accent) transition-colors">PostgreSQL</span>
-                  <span className="text-xs text-(--muted)">06</span>
+                  <span className="text-xs text-(--muted)" aria-hidden="true">06</span>
                 </li>
               </ul>
             </div>
@@ -147,7 +174,7 @@ export default function Home() {
             </div>
             <div className="md:col-span-8 flex flex-col gap-4 md:gap-6">
               <h3 className="text-3xl md:text-6xl font-black uppercase tracking-tighter">
-                <a href="https://github.com/asmi-bucharest-hackathon-2026/SmartStack" target="_blank" rel="noreferrer" className="hover:text-(--accent) transition-colors">
+                <a href="https://github.com/asmi-bucharest-hackathon-2026/SmartStack" target="_blank" rel="noreferrer" aria-label="View Cloud Split Dashboard project source code" className="hover:text-(--accent) transition-colors">
                   Cloud Split Dashboard ↗
                 </a>
               </h3>
@@ -163,7 +190,7 @@ export default function Home() {
             </div>
             <div className="md:col-span-8 flex flex-col gap-4 md:gap-6">
               <h3 className="text-3xl md:text-6xl font-black uppercase tracking-tighter">
-                <a href="https://peer-tutoring-app.vercel.app/" target="_blank" rel="noreferrer" className="hover:text-(--accent) transition-colors">
+                <a href="https://peer-tutoring-app.vercel.app/" target="_blank" rel="noreferrer" aria-label="View PeerTutor live application" className="hover:text-(--accent) transition-colors">
                   PeerTutor ↗
                 </a>
               </h3>
@@ -179,7 +206,7 @@ export default function Home() {
             </div>
             <div className="md:col-span-8 flex flex-col gap-4 md:gap-6">
               <h3 className="text-3xl md:text-6xl font-black uppercase tracking-tighter">
-                <a href="https://github.com/Razvanpng/rpg-habit-tracker" target="_blank" rel="noreferrer" className="hover:text-(--accent) transition-colors">
+                <a href="https://github.com/Razvanpng/rpg-habit-tracker" target="_blank" rel="noreferrer" aria-label="View RPG Habit Tracker source code" className="hover:text-(--accent) transition-colors">
                   RPG Habit Tracker ↗
                 </a>
               </h3>
@@ -195,7 +222,7 @@ export default function Home() {
             </div>
             <div className="md:col-span-8 flex flex-col gap-4 md:gap-6">
               <h3 className="text-3xl md:text-6xl font-black uppercase tracking-tighter">
-                <a href="https://github.com/Razvanpng/smart_music_player" target="_blank" rel="noreferrer" className="hover:text-(--accent) transition-colors">
+                <a href="https://github.com/Razvanpng/smart_music_player" target="_blank" rel="noreferrer" aria-label="View Smart Music Player source code" className="hover:text-(--accent) transition-colors">
                   Smart Music Player ↗
                 </a>
               </h3>
@@ -251,13 +278,14 @@ export default function Home() {
             connect.
           </h2>
           <div className="flex flex-col gap-2 text-base md:text-xl text-(--muted) mb-6 md:mb-8">
-            <MagneticLink href="mailto:razvanstirbu4@gmail.com" className="hover:text-(--accent) transition-colors w-fit">
+            <MagneticLink href="mailto:razvanstirbu4@gmail.com" ariaLabel="Send an email to Razvan Stirbu" className="hover:text-(--accent) transition-colors w-fit">
               razvanstirbu4@gmail.com
             </MagneticLink>
           </div>
           <MagneticLink 
             href="/Stirbu_Razvan_CV.pdf" 
             download 
+            ariaLabel="Download Razvan Stirbu's resume as a PDF"
             className="border border-(--ink) px-5 py-2 text-xs uppercase tracking-widest font-bold hover:bg-(--accent) hover:border-(--accent) hover:text-(--paper) transition-colors"
           >
             [ download_cv.pdf ]
@@ -265,10 +293,10 @@ export default function Home() {
         </div>
 
         <div className="flex flex-col gap-4 text-lg md:text-3xl font-bold uppercase tracking-widest text-left md:text-right">
-          <MagneticLink href="https://github.com/Razvanpng" target="_blank" rel="noreferrer" className="hover:text-(--accent) transition-colors">
+          <MagneticLink href="https://github.com/Razvanpng" target="_blank" rel="noreferrer" ariaLabel="Visit Razvan Stirbu's GitHub profile" className="hover:text-(--accent) transition-colors">
             github
           </MagneticLink>
-          <MagneticLink href="https://linkedin.com/in/razvan-stirbu" target="_blank" rel="noreferrer" className="hover:text-(--accent) transition-colors">
+          <MagneticLink href="https://linkedin.com/in/razvan-stirbu" target="_blank" rel="noreferrer" ariaLabel="Visit Razvan Stirbu's LinkedIn profile" className="hover:text-(--accent) transition-colors">
             linkedin
           </MagneticLink>
         </div>
