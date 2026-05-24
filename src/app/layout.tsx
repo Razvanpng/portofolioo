@@ -33,8 +33,31 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: "Razvan Stirbu",
+    jobTitle: "Software Engineer",
+    url: "https://github.com/Razvanpng",
+    sameAs: [
+      "https://linkedin.com/in/razvan-stirbu",
+      "https://github.com/Razvanpng"
+    ],
+    alumniOf: {
+      "@type": "CollegeOrUniversity",
+      name: "National University of Science and Technology POLITEHNICA Bucharest"
+    },
+    knowsAbout: ["Full-Stack Development", "TypeScript", "React", "Next.js", "PostgreSQL", "GreenOps"]
+  }
+
   return (
     <html lang="en" className={`${cormorant.variable} ${ibmPlexMono.variable}`}>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body>{children}</body>
     </html>
   )
