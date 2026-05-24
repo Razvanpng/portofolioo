@@ -79,7 +79,9 @@ export default function Home() {
             </div>
             <div className="md:col-span-8 flex flex-col gap-6">
               <h3 className="text-4xl md:text-6xl font-black uppercase tracking-tighter">
-                Cloud Split Dashboard
+                <a href="https://github.com/asmi-bucharest-hackathon-2026/SmartStack" target="_blank" rel="noreferrer" className="hover:text-(--accent) transition-colors">
+                  Cloud Split Dashboard ↗
+                </a>
               </h3>
               <p className="text-lg md:text-xl text-(--muted) leading-relaxed max-w-2xl">
                 Carbon-aware compute routing simulator. Built with a k-means clustering algorithm to optimize server distribution based on local carbon intensity.
@@ -93,7 +95,9 @@ export default function Home() {
             </div>
             <div className="md:col-span-8 flex flex-col gap-6">
               <h3 className="text-4xl md:text-6xl font-black uppercase tracking-tighter">
-                PeerTutor
+                <a href="https://peer-tutoring-app.vercel.app/" target="_blank" rel="noreferrer" className="hover:text-(--accent) transition-colors">
+                  PeerTutor ↗
+                </a>
               </h3>
               <p className="text-lg md:text-xl text-(--muted) leading-relaxed max-w-2xl">
                 Real-time collaborative academic workspace. Integrated monaco editor and websockets for live chat and state synchronization without page refreshes.
@@ -107,7 +111,9 @@ export default function Home() {
             </div>
             <div className="md:col-span-8 flex flex-col gap-6">
               <h3 className="text-4xl md:text-6xl font-black uppercase tracking-tighter">
-                RPG Habit Tracker
+                <a href="https://github.com/Razvanpng/rpg-habit-tracker" target="_blank" rel="noreferrer" className="hover:text-(--accent) transition-colors">
+                  RPG Habit Tracker ↗
+                </a>
               </h3>
               <p className="text-lg md:text-xl text-(--muted) leading-relaxed max-w-2xl">
                 Full-stack habit tracking platform. Implemented cross-domain authentication with jwt and rigorous api route protection via zod and rate limiting.
@@ -121,7 +127,9 @@ export default function Home() {
             </div>
             <div className="md:col-span-8 flex flex-col gap-6">
               <h3 className="text-4xl md:text-6xl font-black uppercase tracking-tighter">
-                Smart Music Player
+                <a href="https://github.com/Razvanpng/smart_music_player" target="_blank" rel="noreferrer" className="hover:text-(--accent) transition-colors">
+                  Smart Music Player ↗
+                </a>
               </h3>
               <p className="text-lg md:text-xl text-(--muted) leading-relaxed max-w-2xl">
                 Academic multimedia application. Developed an intelligent audio playback system integrated with an open-source speech-to-text pipeline to generate synchronized lyrics on the fly.
