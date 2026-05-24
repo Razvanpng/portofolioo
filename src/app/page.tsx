@@ -1,6 +1,49 @@
 "use client";
 
-import { useEffect, useState, useRef, ReactNode } from "react";
+import { useEffect, useState, useRef, ReactNode, useCallback } from "react";
+
+const useTextScramble = (finalText: string, duration = 400) => {
+  const [currentText, setCurrentText] = useState(finalText);
+  const [isScrambling, setIsScrambling] = useState(false);
+  const chars = "!<>-_\\/[]{}—=+*^?#________";
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  const startScramble = useCallback(() => {
+    if (isScrambling) return;
+    setIsScrambling(true);
+    let iteration = 0;
+    if (intervalRef.current) clearInterval(intervalRef.current);
+
+    intervalRef.current = setInterval(() => {
+      setCurrentText((prev) =>
+        finalText
+          .split("")
+          .map((char, index) => {
+            if (index < iteration) {
+              return finalText[index];
+            }
+            return chars[Math.floor(Math.random() * chars.length)];
+          })
+          .join("")
+      );
+
+      if (iteration >= finalText.length) {
+        if (intervalRef.current) clearInterval(intervalRef.current);
+        setIsScrambling(false);
+        setCurrentText(finalText);
+      }
+      iteration += finalText.length / (duration / 40);
+    }, 40);
+  }, [finalText, duration, isScrambling]);
+
+  const stopScramble = useCallback(() => {
+    if (intervalRef.current) clearInterval(intervalRef.current);
+    setIsScrambling(false);
+    setCurrentText(finalText);
+  }, [finalText]);
+
+  return { currentText, startScramble, stopScramble };
+};
 
 interface MagneticLinkProps {
   children: ReactNode;
@@ -47,7 +90,48 @@ function MagneticLink({ children, href, className, download, target, rel, ariaLa
   );
 }
 
+interface ScrambleLinkProps extends ScrambleLinkCoreProps {
+  ariaLabel?: string;
+}
+
+interface ScrambleLinkCoreProps {
+  text: string;
+  href: string;
+  className?: string;
+  target?: string;
+  rel?: string;
+}
+
+function ScrambleLink({ text, href, className, target, rel, ariaLabel }: ScrambleLinkProps) {
+  const { currentText, startScramble, stopScramble } = useTextScramble(text);
+
+  return (
+    <a
+      href={href}
+      target={target}
+      rel={rel}
+      aria-label={ariaLabel}
+      className={className}
+      onMouseEnter={startScramble}
+      onMouseLeave={stopScramble}
+    >
+      {currentText}
+    </a>
+  );
+}
+
 export default function Home() {
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollProgress(window.scrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   useEffect(() => {
     const storedTheme = localStorage.getItem("theme");
     if (storedTheme === "light") {
@@ -85,6 +169,8 @@ export default function Home() {
     }
   };
 
+  const kineticOffset = scrollProgress * 0.15;
+
   return (
     <main className="w-full min-h-screen bg-(--paper) text-(--ink) font-mono selection:bg-(--accent) selection:text-(--paper) animate-fade-in relative pb-16">
       
@@ -96,13 +182,21 @@ export default function Home() {
         [ invert ]
       </button>
 
-      <section className="relative min-h-[85vh] w-full pt-20 pb-20 px-6 md:pt-24 md:pb-24 md:px-[8vw] flex flex-col justify-center">
+      <section className="relative min-h-[85vh] w-full pt-20 pb-20 px-6 md:pt-24 md:pb-24 md:px-[8vw] flex flex-col justify-center overflow-hidden">
         <div className="w-full">
           <h1 className="flex flex-col gap-2 md:gap-4 font-black tracking-tighter uppercase leading-none">
-            <span className="text-[18vw] md:text-[10vw] text-(--ink)">
+            <span 
+              className="text-[18vw] md:text-[10vw] text-(--ink)"
+              data-kinetic="left"
+              style={{ transform: `translateX(${-kineticOffset}px)` }}
+            >
               Razvan
             </span>
-            <span className="text-[18vw] md:text-[10vw] text-(--ink) ml-[10vw] md:ml-[20vw]">
+            <span 
+              className="text-[18vw] md:text-[10vw] text-(--ink) ml-[10vw] md:ml-[20vw]"
+              data-kinetic="right"
+              style={{ transform: `translateX(${kineticOffset}px)` }}
+            >
               Stirbu
             </span>
           </h1>
@@ -174,9 +268,14 @@ export default function Home() {
             </div>
             <div className="md:col-span-8 flex flex-col gap-4 md:gap-6">
               <h3 className="text-3xl md:text-6xl font-black uppercase tracking-tighter">
-                <a href="https://github.com/asmi-bucharest-hackathon-2026/SmartStack" target="_blank" rel="noreferrer" aria-label="View Cloud Split Dashboard project source code" className="hover:text-(--accent) transition-colors">
-                  Cloud Split Dashboard ↗
-                </a>
+                <ScrambleLink 
+                  text="Cloud Split Dashboard ↗"
+                  href="https://github.com/asmi-bucharest-hackathon-2026/SmartStack"
+                  target="_blank"
+                  rel="noreferrer"
+                  ariaLabel="View Cloud Split Dashboard project source code"
+                  className="hover:text-(--accent) transition-colors"
+                />
               </h3>
               <p className="text-base md:text-xl text-(--muted) leading-relaxed max-w-2xl">
                 Carbon-aware compute routing simulator. Built with a k-means clustering algorithm to optimize server distribution based on local carbon intensity.
@@ -190,9 +289,14 @@ export default function Home() {
             </div>
             <div className="md:col-span-8 flex flex-col gap-4 md:gap-6">
               <h3 className="text-3xl md:text-6xl font-black uppercase tracking-tighter">
-                <a href="https://peer-tutoring-app.vercel.app/" target="_blank" rel="noreferrer" aria-label="View PeerTutor live application" className="hover:text-(--accent) transition-colors">
-                  PeerTutor ↗
-                </a>
+                <ScrambleLink 
+                  text="PeerTutor ↗"
+                  href="https://peer-tutoring-app.vercel.app/"
+                  target="_blank"
+                  rel="noreferrer"
+                  ariaLabel="View PeerTutor live application"
+                  className="hover:text-(--accent) transition-colors"
+                />
               </h3>
               <p className="text-base md:text-xl text-(--muted) leading-relaxed max-w-2xl">
                 Real-time collaborative academic workspace. Integrated monaco editor and websockets for live chat and state synchronization without page refreshes.
@@ -206,9 +310,14 @@ export default function Home() {
             </div>
             <div className="md:col-span-8 flex flex-col gap-4 md:gap-6">
               <h3 className="text-3xl md:text-6xl font-black uppercase tracking-tighter">
-                <a href="https://github.com/Razvanpng/rpg-habit-tracker" target="_blank" rel="noreferrer" aria-label="View RPG Habit Tracker source code" className="hover:text-(--accent) transition-colors">
-                  RPG Habit Tracker ↗
-                </a>
+                <ScrambleLink 
+                  text="RPG Habit Tracker ↗"
+                  href="https://github.com/Razvanpng/rpg-habit-tracker"
+                  target="_blank"
+                  rel="noreferrer"
+                  ariaLabel="View RPG Habit Tracker source code"
+                  className="hover:text-(--accent) transition-colors"
+                />
               </h3>
               <p className="text-base md:text-xl text-(--muted) leading-relaxed max-w-2xl">
                 Full-stack habit tracking platform. Implemented cross-domain authentication with jwt and rigorous api route protection via zod and rate limiting.
@@ -222,9 +331,14 @@ export default function Home() {
             </div>
             <div className="md:col-span-8 flex flex-col gap-4 md:gap-6">
               <h3 className="text-3xl md:text-6xl font-black uppercase tracking-tighter">
-                <a href="https://github.com/Razvanpng/smart_music_player" target="_blank" rel="noreferrer" aria-label="View Smart Music Player source code" className="hover:text-(--accent) transition-colors">
-                  Smart Music Player ↗
-                </a>
+                <ScrambleLink 
+                  text="Smart Music Player ↗"
+                  href="https://github.com/Razvanpng/smart_music_player"
+                  target="_blank"
+                  rel="noreferrer"
+                  ariaLabel="View Smart Music Player source code"
+                  className="hover:text-(--accent) transition-colors"
+                />
               </h3>
               <p className="text-base md:text-xl text-(--muted) leading-relaxed max-w-2xl">
                 Academic multimedia application. Developed an intelligent audio playback system integrated with an open-source speech-to-text pipeline to generate synchronized lyrics on the fly.
@@ -277,10 +391,13 @@ export default function Home() {
           <h2 className="text-[16vw] md:text-[6vw] font-black uppercase tracking-tighter leading-none mb-6 md:mb-8">
             connect.
           </h2>
-          <div className="flex flex-col gap-2 text-base md:text-xl text-(--muted) mb-6 md:mb-8">
-            <MagneticLink href="mailto:razvanstirbu4@gmail.com" ariaLabel="Send an email to Razvan Stirbu" className="hover:text-(--accent) transition-colors w-fit">
-              razvanstirbu4@gmail.com
-            </MagneticLink>
+          <div className="flex flex-col gap-2 text-base md:text-xl text-(--muted) mb-6 md:mb-8 transition-none!">
+            <ScrambleLink 
+              text="razvanstirbu4@gmail.com"
+              href="mailto:razvanstirbu4@gmail.com"
+              ariaLabel="Send an email to Razvan Stirbu"
+              className="hover:text-(--accent) transition-colors w-fit block"
+            />
           </div>
           <MagneticLink 
             href="/Stirbu_Razvan_CV.pdf" 
@@ -292,13 +409,23 @@ export default function Home() {
           </MagneticLink>
         </div>
 
-        <div className="flex flex-col gap-4 text-lg md:text-3xl font-bold uppercase tracking-widest text-left md:text-right">
-          <MagneticLink href="https://github.com/Razvanpng" target="_blank" rel="noreferrer" ariaLabel="Visit Razvan Stirbu's GitHub profile" className="hover:text-(--accent) transition-colors">
-            github
-          </MagneticLink>
-          <MagneticLink href="https://linkedin.com/in/razvan-stirbu" target="_blank" rel="noreferrer" ariaLabel="Visit Razvan Stirbu's LinkedIn profile" className="hover:text-(--accent) transition-colors">
-            linkedin
-          </MagneticLink>
+        <div className="flex flex-col gap-4 text-lg md:text-3xl font-bold uppercase tracking-widest text-left md:text-right transition-none!">
+          <ScrambleLink 
+            text="github"
+            href="https://github.com/Razvanpng"
+            target="_blank"
+            rel="noreferrer"
+            ariaLabel="Visit Razvan Stirbu's GitHub profile"
+            className="hover:text-(--accent) transition-colors block"
+          />
+          <ScrambleLink 
+            text="linkedin"
+            href="https://linkedin.com/in/razvan-stirbu"
+            target="_blank"
+            rel="noreferrer"
+            ariaLabel="Visit Razvan Stirbu's LinkedIn profile"
+            className="hover:text-(--accent) transition-colors block"
+          />
         </div>
       </section>
     </main>

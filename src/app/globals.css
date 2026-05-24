@@ -21,7 +21,6 @@ body {
   transition: background-color 0s, color 0s;
 }
 
-/* Forțăm link-urile și butoanele să moștenească culoarea textului părinte */
 a, button {
   color: currentColor;
 }
@@ -55,4 +54,12 @@ a, button {
 .reveal.is-visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+[data-kinetic="left"] {
+  will-change: transform;
+}
+
+[data-kinetic="right"] {
+  will-change: transform;
 }
