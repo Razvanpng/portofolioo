@@ -1,6 +1,5 @@
 import type { Metadata } from "next"
-import { Cormorant } from "next/font/google"
-import { IBM_Plex_Mono } from "next/font/google"
+import { Cormorant, IBM_Plex_Mono } from "next/font/google"
 import "./globals.css"
 
 const cormorant = Cormorant({
@@ -16,8 +15,17 @@ const ibmPlexMono = IBM_Plex_Mono({
 })
 
 export const metadata: Metadata = {
-  title: "Răzvan Ştirbu",
-  description: "Applied Informatics Student & Software Engineer based in Bucharest.",
+  title: "Razvan Stirbu",
+  description: "Applied Informatics Student and Software Engineer based in Bucharest. Building raw products from database schemas to the interface.",
+  keywords: ["Razvan Stirbu", "Software Engineer", "Applied Informatics", "Portfolio", "Next.js", "TypeScript", "Full-Stack"],
+  authors: [{ name: "Razvan Stirbu" }],
+  openGraph: {
+    title: "Razvan Stirbu",
+    description: "Applied Informatics Student and Software Engineer based in Bucharest.",
+    url: "https://github.com/Razvanpng",
+    siteName: "Razvan Stirbu Portfolio",
+    type: "website",
+  },
 }
 
 export default function RootLayout({
