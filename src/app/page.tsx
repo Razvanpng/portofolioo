@@ -25,7 +25,7 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="w-full min-h-screen bg-(--paper) text-(--ink) font-mono selection:bg-(--accent) selection:text-(--paper) animate-fade-in">
+    <main className="w-full min-h-screen bg-(--paper) text-(--ink) font-mono selection:bg-(--accent) selection:text-(--paper) animate-fade-in relative pb-16">
       <section className="relative min-h-[85vh] w-full pt-24 pb-24 px-[8vw] flex flex-col justify-center">
         <div className="w-full">
           <h1 className="flex flex-col gap-4 font-black tracking-tighter uppercase leading-none">
@@ -40,7 +40,7 @@ export default function Home() {
 
         <div className="flex justify-end w-full mt-24">
           <div className="w-full md:w-1/2 lg:w-1/3 text-sm md:text-base leading-relaxed border-l border-(--accent) pl-6">
-            Applied Informatics Student and Software Engineer. Building raw products from database schemas to the interface.
+            Applied Informatics Student and <span className="hover:line-through hover:text-(--accent) transition-all duration-300">Software Engineer</span>. Building <span className="hover:italic hover:text-(--accent) transition-all duration-300">raw products</span> from database schemas to the interface.
           </div>
         </div>
       </section>
@@ -54,7 +54,7 @@ export default function Home() {
 
         <div className="grid grid-cols-1 md:grid-cols-12 gap-16 w-full mt-24">
           <div className="md:col-span-5 text-lg md:text-xl leading-relaxed text-(--muted)">
-            Specialized in full-stack development. I bypass generic templates to build custom architecture.
+            Specialized in full-stack development. I bypass <span className="hover:line-through transition-all duration-300">generic templates</span> to build custom architecture.
           </div>
 
           <div className="md:col-span-7 flex justify-end">
