@@ -133,7 +133,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="relative min-h-screen w-full px-6 md:px-[8vw] py-20 md:py-32 border-t-[8px] md:border-t-[16px] border-(--ink) reveal">
+      <section className="relative min-h-screen w-full px-6 md:px-[8vw] py-20 md:py-32 border-t-8 md:border-t-16 border-(--ink) reveal">
         <div className="mb-20 md:mb-32">
           <h2 className="text-3xl md:text-5xl font-bold leading-tight uppercase max-w-4xl">
             selected work.
