@@ -1,6 +1,31 @@
+"use client";
+
+import { useEffect } from "react";
+
 export default function Home() {
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    const elements = document.querySelectorAll(".reveal");
+    elements.forEach((el) => observer.observe(el));
+
+    return () => {
+      elements.forEach((el) => observer.unobserve(el));
+      observer.disconnect();
+    };
+  }, []);
+
   return (
-    <main className="w-full min-h-screen bg-(--paper) text-(--ink) font-mono selection:bg-(--accent) selection:text-(--paper)">
+    <main className="w-full min-h-screen bg-(--paper) text-(--ink) font-mono selection:bg-(--accent) selection:text-(--paper) animate-fade-in">
       <section className="relative min-h-[85vh] w-full pt-24 pb-24 px-[8vw] flex flex-col justify-center">
         <div className="w-full">
           <h1 className="flex flex-col gap-4 font-black tracking-tighter uppercase leading-none">
@@ -20,7 +45,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="relative min-h-screen w-full px-[8vw] py-32 border-t border-(--muted) border-opacity-20">
+      <section className="relative min-h-screen w-full px-[8vw] py-32 border-t border-(--muted) border-opacity-20 reveal">
         <div className="mb-24">
           <h2 className="text-3xl md:text-5xl font-bold leading-tight uppercase max-w-4xl">
             3rd-year applied informatics student at the faculty of automatic control and computers.
@@ -34,29 +59,29 @@ export default function Home() {
 
           <div className="md:col-span-7 flex justify-end">
             <div className="w-full max-w-md">
-              <ul className="flex flex-col gap-6 text-xl md:text-2xl font-bold uppercase tracking-widest">
-                <li className="flex justify-between items-center group">
-                  <span className="group-hover:text-(--accent) transition-colors">JavaScript</span>
+              <ul className="flex flex-col gap-6 text-xl md:text-2xl font-bold uppercase tracking-widest group/list">
+                <li className="flex justify-between items-center group/item group-hover/list:opacity-50 hover:opacity-100! transition-opacity duration-300">
+                  <span className="group-hover/item:text-(--accent) transition-colors">JavaScript</span>
                   <span className="text-xs text-(--muted)">01</span>
                 </li>
-                <li className="flex justify-between items-center group ml-4">
-                  <span className="group-hover:text-(--accent) transition-colors">TypeScript</span>
+                <li className="flex justify-between items-center group/item ml-4 group-hover/list:opacity-50 hover:opacity-100! transition-opacity duration-300">
+                  <span className="group-hover/item:text-(--accent) transition-colors">TypeScript</span>
                   <span className="text-xs text-(--muted)">02</span>
                 </li>
-                <li className="flex justify-between items-center group ml-8">
-                  <span className="group-hover:text-(--accent) transition-colors">React.js</span>
+                <li className="flex justify-between items-center group/item ml-8 group-hover/list:opacity-50 hover:opacity-100! transition-opacity duration-300">
+                  <span className="group-hover/item:text-(--accent) transition-colors">React.js</span>
                   <span className="text-xs text-(--muted)">03</span>
                 </li>
-                <li className="flex justify-between items-center group ml-12">
-                  <span className="group-hover:text-(--accent) transition-colors">Next.js</span>
+                <li className="flex justify-between items-center group/item ml-12 group-hover/list:opacity-50 hover:opacity-100! transition-opacity duration-300">
+                  <span className="group-hover/item:text-(--accent) transition-colors">Next.js</span>
                   <span className="text-xs text-(--muted)">04</span>
                 </li>
-                <li className="flex justify-between items-center group ml-16">
-                  <span className="group-hover:text-(--accent) transition-colors">Node.js</span>
+                <li className="flex justify-between items-center group/item ml-16 group-hover/list:opacity-50 hover:opacity-100! transition-opacity duration-300">
+                  <span className="group-hover/item:text-(--accent) transition-colors">Node.js</span>
                   <span className="text-xs text-(--muted)">05</span>
                 </li>
-                <li className="flex justify-between items-center group ml-20">
-                  <span className="group-hover:text-(--accent) transition-colors">PostgreSQL</span>
+                <li className="flex justify-between items-center group/item ml-20 group-hover/list:opacity-50 hover:opacity-100! transition-opacity duration-300">
+                  <span className="group-hover/item:text-(--accent) transition-colors">PostgreSQL</span>
                   <span className="text-xs text-(--muted)">06</span>
                 </li>
               </ul>
@@ -65,21 +90,21 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="relative min-h-screen w-full px-[8vw] py-32 border-t border-(--muted) border-opacity-20">
+      <section className="relative min-h-screen w-full px-[8vw] py-32 border-t border-(--muted) border-opacity-20 reveal">
         <div className="mb-32">
           <h2 className="text-3xl md:text-5xl font-bold leading-tight uppercase max-w-4xl">
             selected work.
           </h2>
         </div>
 
-        <div className="flex flex-col gap-32 w-full">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start group">
+        <div className="flex flex-col gap-32 w-full group/list">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start group group-hover/list:opacity-50 hover:opacity-100! transition-opacity duration-500">
             <div className="md:col-span-4 text-sm md:text-base text-(--muted) group-hover:text-(--accent) transition-colors mt-2">
               vanilla js / html5 / css3
             </div>
             <div className="md:col-span-8 flex flex-col gap-6">
               <h3 className="text-4xl md:text-6xl font-black uppercase tracking-tighter">
-                <a href="https://github.com/asmi-buchahrst-hackathon-2026/SmartStack" target="_blank" rel="noreferrer" className="hover:text-(--accent) transition-colors">
+                <a href="https://github.com/asmi-bucharest-hackathon-2026/SmartStack" target="_blank" rel="noreferrer" className="hover:text-(--accent) transition-colors">
                   Cloud Split Dashboard ↗
                 </a>
               </h3>
@@ -89,7 +114,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start group">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start group group-hover/list:opacity-50 hover:opacity-100! transition-opacity duration-500">
             <div className="md:col-span-4 text-sm md:text-base text-(--muted) group-hover:text-(--accent) transition-colors mt-2">
               react / tailwind / supabase / postgresql
             </div>
@@ -105,7 +130,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start group">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start group group-hover/list:opacity-50 hover:opacity-100! transition-opacity duration-500">
             <div className="md:col-span-4 text-sm md:text-base text-(--muted) group-hover:text-(--accent) transition-colors mt-2">
               next.js / express / prisma / postgresql
             </div>
@@ -121,7 +146,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start group">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start group group-hover/list:opacity-50 hover:opacity-100! transition-opacity duration-500">
             <div className="md:col-span-4 text-sm md:text-base text-(--muted) group-hover:text-(--accent) transition-colors mt-2">
               python / whisper ai
             </div>
@@ -139,15 +164,15 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="relative min-h-screen w-full px-[8vw] py-32 border-t border-(--muted) border-opacity-20">
+      <section className="relative min-h-screen w-full px-[8vw] py-32 border-t border-(--muted) border-opacity-20 reveal">
         <div className="mb-24">
           <h2 className="text-3xl md:text-5xl font-bold leading-tight uppercase max-w-4xl">
             hackathons.
           </h2>
         </div>
 
-        <div className="flex flex-col gap-24 w-full">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start border-l border-(--muted) border-opacity-30 pl-6">
+        <div className="flex flex-col gap-24 w-full group/list">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start border-l border-(--muted) border-opacity-30 pl-6 group-hover/list:opacity-50 hover:opacity-100! transition-opacity duration-500">
             <div className="md:col-span-4 text-xs text-(--accent) uppercase tracking-widest mt-1">
               May 2026 // Microsoft
             </div>
@@ -161,7 +186,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start border-l border-(--muted) border-opacity-30 pl-6">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start border-l border-(--muted) border-opacity-30 pl-6 group-hover/list:opacity-50 hover:opacity-100! transition-opacity duration-500">
             <div className="md:col-span-4 text-xs text-(--accent) uppercase tracking-widest mt-1">
               December 2024 // 6th place
             </div>
@@ -177,7 +202,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="relative w-full px-[8vw] py-32 border-t border-(--muted) border-opacity-20 flex flex-col md:flex-row justify-between items-start md:items-end gap-16">
+      <section className="relative w-full px-[8vw] py-32 border-t border-(--muted) border-opacity-20 flex flex-col md:flex-row justify-between items-start md:items-end gap-16 reveal">
         <div>
           <h2 className="text-[10vw] md:text-[6vw] font-black uppercase tracking-tighter leading-none mb-8">
             connect.
@@ -204,5 +229,5 @@ export default function Home() {
         </div>
       </section>
     </main>
-  )
+  );
 }
