@@ -79,7 +79,7 @@ export default function Home() {
             </div>
             <div className="md:col-span-8 flex flex-col gap-6">
               <h3 className="text-4xl md:text-6xl font-black uppercase tracking-tighter">
-                <a href="https://github.com/asmi-bucharest-hackathon-2026/SmartStack" target="_blank" rel="noreferrer" className="hover:text-(--accent) transition-colors">
+                <a href="https://github.com/asmi-buchahrst-hackathon-2026/SmartStack" target="_blank" rel="noreferrer" className="hover:text-(--accent) transition-colors">
                   Cloud Split Dashboard ↗
                 </a>
               </h3>
@@ -184,7 +184,6 @@ export default function Home() {
           </h2>
           <div className="flex flex-col gap-2 text-lg md:text-xl text-(--muted) mb-8">
             <a href="mailto:razvanstirbu4@gmail.com" className="hover:text-(--accent) transition-colors w-fit">razvanstirbu4@gmail.com</a>
-            <span className="w-fit">+40 773 919 551</span>
           </div>
           <a 
             href="/Stirbu_Razvan_CV.pdf" 
