@@ -14,17 +14,27 @@ const ibmPlexMono = IBM_Plex_Mono({
   weight: ["400", "500"],
 })
 
+const baseUrl = "https://portofolio-psi-lovat-74.vercel.app"
+
 export const metadata: Metadata = {
   title: "Razvan Stirbu",
   description: "Applied Informatics Student and Software Engineer based in Bucharest. Building raw products from database schemas to the interface.",
   keywords: ["Razvan Stirbu", "Software Engineer", "Applied Informatics", "Portfolio", "Next.js", "TypeScript", "Full-Stack"],
   authors: [{ name: "Razvan Stirbu" }],
+  alternates: {
+    canonical: baseUrl,
+  },
   openGraph: {
     title: "Razvan Stirbu",
     description: "Applied Informatics Student and Software Engineer based in Bucharest.",
-    url: "https://github.com/Razvanpng",
+    url: baseUrl,
     siteName: "Razvan Stirbu Portfolio",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Razvan Stirbu",
+    description: "Applied Informatics Student and Software Engineer based in Bucharest.",
   },
 }
 
@@ -38,7 +48,7 @@ export default function RootLayout({
     "@type": "Person",
     name: "Razvan Stirbu",
     jobTitle: "Software Engineer",
-    url: "https://github.com/Razvanpng",
+    url: baseUrl,
     sameAs: [
       "https://linkedin.com/in/razvan-stirbu",
       "https://github.com/Razvanpng"
@@ -53,6 +63,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${cormorant.variable} ${ibmPlexMono.variable}`}>
       <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{if(localStorage.getItem('theme')==='light'){document.documentElement.classList.add('theme-light');}}catch(e){}})();`,
+          }}
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

@@ -63,3 +63,22 @@ a, button {
 [data-kinetic="right"] {
   will-change: transform;
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-in {
+    animation: none;
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .reveal {
+    transition: none;
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  [data-kinetic="left"],
+  [data-kinetic="right"] {
+    transform: none !important;
+  }
+}

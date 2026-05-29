@@ -120,16 +120,53 @@ function ScrambleLink({ text, href, className, target, rel, ariaLabel }: Scrambl
   );
 }
 
+function EmailCopyButton({ email }: { email: string }) {
+  const [copied, setCopied] = useState(false);
+  const { currentText, startScramble, stopScramble } = useTextScramble(email);
+
+  const handleCopy = () => {
+    stopScramble();
+    navigator.clipboard.writeText(email).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }).catch(() => {});
+  };
+
+  return (
+    <button
+      onClick={handleCopy}
+      onMouseEnter={!copied ? startScramble : undefined}
+      onMouseLeave={!copied ? stopScramble : undefined}
+      className="hover:text-(--accent) transition-colors w-fit block text-left text-base md:text-xl text-(--muted) cursor-pointer"
+      aria-label="Copy email address to clipboard"
+    >
+      {copied ? "copied!" : currentText}
+    </button>
+  );
+}
+
 export default function Home() {
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [scrollPercent, setScrollPercent] = useState(0);
+  const rafRef = useRef<number | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrollProgress(window.scrollY);
+      if (rafRef.current) return;
+      rafRef.current = requestAnimationFrame(() => {
+        const scrollY = window.scrollY;
+        const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+        setScrollProgress(scrollY);
+        setScrollPercent(maxScroll > 0 ? scrollY / maxScroll : 0);
+        rafRef.current = null;
+      });
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
   }, []);
 
   useEffect(() => {
@@ -173,8 +210,13 @@ export default function Home() {
 
   return (
     <main className="w-full min-h-screen bg-(--paper) text-(--ink) font-mono selection:bg-(--accent) selection:text-(--paper) animate-fade-in relative pb-16">
-      
-      <button 
+
+      <div
+        className="fixed top-0 left-0 w-full h-[2px] bg-(--accent) z-[100] origin-left"
+        style={{ transform: `scaleX(${scrollPercent})` }}
+      />
+
+      <button
         onClick={toggleTheme}
         aria-label="Invert color theme"
         className="absolute top-8 right-6 md:top-12 md:right-[8vw] z-50 text-xs font-bold uppercase tracking-widest hover:text-(--accent) transition-colors cursor-pointer"
@@ -185,7 +227,7 @@ export default function Home() {
       <section className="relative min-h-[85vh] w-full pt-20 pb-20 px-6 md:pt-24 md:pb-24 md:px-[8vw] flex flex-col justify-center overflow-hidden">
         <div className="w-full">
           <h1 className="flex flex-col gap-2 md:gap-4 font-black tracking-tighter uppercase leading-none">
-            <span 
+            <span
               className="inline-block"
               data-kinetic="left"
               style={{ transform: `translateX(${-kineticOffset}px)` }}
@@ -194,7 +236,7 @@ export default function Home() {
                 Razvan
               </span>
             </span>
-            <span 
+            <span
               className="inline-block ml-[10vw] md:ml-[20vw]"
               data-kinetic="right"
               style={{ transform: `translateX(${kineticOffset}px)` }}
@@ -258,7 +300,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="relative min-h-screen w-full px-6 md:px-[8vw] py-20 md:py-32 border-t-8 md:border-t-16 border-(--ink) reveal">
+      <section className="relative min-h-screen w-full px-6 md:px-[8vw] py-20 md:py-32 border-t-8 md:border-t-[16px] border-(--ink) reveal">
         <div className="mb-20 md:mb-32">
           <h2 className="text-3xl md:text-5xl font-bold leading-tight uppercase max-w-4xl">
             selected work.
@@ -272,7 +314,7 @@ export default function Home() {
             </div>
             <div className="md:col-span-8 flex flex-col gap-4 md:gap-6">
               <h3 className="text-3xl md:text-6xl font-black uppercase tracking-tighter">
-                <ScrambleLink 
+                <ScrambleLink
                   text="Cloud Split Dashboard ↗"
                   href="https://github.com/asmi-bucharest-hackathon-2026/SmartStack"
                   target="_blank"
@@ -293,7 +335,7 @@ export default function Home() {
             </div>
             <div className="md:col-span-8 flex flex-col gap-4 md:gap-6">
               <h3 className="text-3xl md:text-6xl font-black uppercase tracking-tighter">
-                <ScrambleLink 
+                <ScrambleLink
                   text="PeerTutor ↗"
                   href="https://peer-tutoring-app.vercel.app/"
                   target="_blank"
@@ -314,7 +356,7 @@ export default function Home() {
             </div>
             <div className="md:col-span-8 flex flex-col gap-4 md:gap-6">
               <h3 className="text-3xl md:text-6xl font-black uppercase tracking-tighter">
-                <ScrambleLink 
+                <ScrambleLink
                   text="RPG Habit Tracker ↗"
                   href="https://github.com/Razvanpng/rpg-habit-tracker"
                   target="_blank"
@@ -335,7 +377,7 @@ export default function Home() {
             </div>
             <div className="md:col-span-8 flex flex-col gap-4 md:gap-6">
               <h3 className="text-3xl md:text-6xl font-black uppercase tracking-tighter">
-                <ScrambleLink 
+                <ScrambleLink
                   text="Smart Music Player ↗"
                   href="https://github.com/Razvanpng/smart_music_player"
                   target="_blank"
@@ -396,16 +438,11 @@ export default function Home() {
             connect.
           </h2>
           <div className="flex flex-col gap-2 text-base md:text-xl text-(--muted) mb-6 md:mb-8 transition-none!">
-            <ScrambleLink 
-              text="razvanstirbu4@gmail.com"
-              href="mailto:razvanstirbu4@gmail.com"
-              ariaLabel="Send an email to Razvan Stirbu"
-              className="hover:text-(--accent) transition-colors w-fit block"
-            />
+            <EmailCopyButton email="razvanstirbu4@gmail.com" />
           </div>
-          <MagneticLink 
-            href="/Stirbu_Razvan_CV.pdf" 
-            download 
+          <MagneticLink
+            href="/Stirbu_Razvan_CV.pdf"
+            download
             ariaLabel="Download Razvan Stirbu's resume as a PDF"
             className="border border-(--ink) px-5 py-2 text-xs uppercase tracking-widest font-bold hover:bg-(--accent) hover:border-(--accent) hover:text-(--paper) transition-colors"
           >
@@ -414,7 +451,7 @@ export default function Home() {
         </div>
 
         <div className="flex flex-col gap-4 text-lg md:text-3xl font-bold uppercase tracking-widest text-left md:text-right transition-none!">
-          <ScrambleLink 
+          <ScrambleLink
             text="github"
             href="https://github.com/Razvanpng"
             target="_blank"
@@ -422,7 +459,7 @@ export default function Home() {
             ariaLabel="Visit Razvan Stirbu's GitHub profile"
             className="hover:text-(--accent) transition-colors block"
           />
-          <ScrambleLink 
+          <ScrambleLink
             text="linkedin"
             href="https://linkedin.com/in/razvan-stirbu"
             target="_blank"
